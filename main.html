@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Electric Charger Management</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.charger {
+			width: 200px;
+			height: 200px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+
+		.charger p {
+			margin: 0;
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		.checked-in {
+			background-color: green;
+			color: white;
+		}
+
+		.checked-out {
+			background-color: red;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="charger" id="charger1">
+			<p>Charger 1</p>
+			<button onclick="checkIn('charger1')">Check In</button>
+			<button onclick="checkOut('charger1')">Check Out</button>
+		</div>
+		<div class="charger" id="charger2">
+			<p>Charger 2</p>
+			<button onclick="checkIn('charger2')">Check In</button>
+			<button onclick="checkOut('charger2')">Check Out</button>
+		</div>
+		<div class="charger" id="charger3">
+			<p>Charger 3</p>
+			<button onclick="checkIn('charger3')">Check In</button>
+			<button onclick="checkOut('charger3')">Check Out</button>
+		</div>
+		<div class="charger" id="charger4">
+			<p>Charger 4</p>
+			<button onclick="checkIn('charger4')">Check In</button>
+			<button onclick="checkOut('charger4')">Check Out</button>
+		</div>
+		<div class="charger" id="charger5">
+			<p>Charger 5</p>
+			<button onclick="checkIn('charger5')">Check In</button>
+			<button onclick="checkOut('charger5')">Check Out</button>
+		</div>
+		<div class="charger" id="charger6">
+			<p>Charger 6</p>
+			<button onclick="checkIn('charger6')">Check In</button>
+			<button onclick="checkOut('charger6')">Check Out</button>
+		</div>
+		<div class="charger" id="charger7">
+			<p>Charger 7</p>
+			<button onclick="checkIn('charger7')">Check In</button>
+			<button onclick="checkOut('charger7')">Check Out</button>
+		</div>
+		<div class="charger" id="charger8">
+			<p>Charger 8</p>
+			<button onclick="checkIn('charger8')">Check In</button>
+			<button onclick="checkOut('charger8')">Check Out</button
+	</div>
+</div>
+
+<script>
+	// Define an object to hold the state of each charger
+	const chargers = {
+		charger1: {
+			checkedIn: false,
+			guest: false
+		},
+		charger2: {
+			checkedIn: false,
+			guest: false
+		},
+		charger3: {
+			checkedIn: false,
+			guest: false
+		},
+		charger4: {
+			checkedIn: false,
+			guest: false
+		},
+		charger5: {
+			checkedIn: false,
+			guest: false
+		},
+		charger6: {
+			checkedIn: false,
+			guest: false
+		},
+		charger7: {
+			checkedIn: false,
+			guest: false
+		},
+		charger8: {
+			checkedIn: false,
+			guest: false
+		}
+	};
+
+	// Define functions to handle checking in and out
+	function checkIn(chargerId) {
+		if (!chargers[chargerId].checkedIn) {
+			chargers[chargerId].checkedIn = true;
+			document.getElementById(chargerId).classList.add('checked-in');
+			document.getElementById(chargerId).classList.remove('checked-out');
+			updateChargerStatus(chargerId);
+		}
+	}
+
+	function checkOut(chargerId) {
+		if (chargers[chargerId].checkedIn) {
+			chargers[chargerId].checkedIn = false;
+			document.getElementById(chargerId).classList.add('checked-out');
+			document.getElementById(chargerId).classList.remove('checked-in');
+			chargers[chargerId].guest = false;
+			updateChargerStatus(chargerId);
+		}
+	}
+
+	// Define a function to update the status of each charger
+	function updateChargerStatus(chargerId) {
+		let status = 'Available';
+
+		if (chargers[chargerId].checkedIn) {
+			if (chargers[chargerId].guest) {
+				status = 'In use by guest';
+			} else {
+				status = 'In use by group member';
+			}
+		}
+
+		document.getElementById(chargerId).innerHTML = `
+			<p>Charger ${chargerId.slice(-1)}</p>
+			<p>${status}</p>
+			<button onclick="checkIn('${chargerId}')">Check In</button>
+			<button onclick="checkOut('${chargerId}')">Check Out</button>
+			<button onclick="markGuest('${chargerId}')">Mark as Guest</button>
+		`;
+	}
+
+	// Define a function to mark a charger as being used by a guest
+	function markGuest(chargerId) {
+		if (chargers[chargerId].checkedIn) {
+			chargers[chargerId].guest = true;
+			updateChargerStatus(chargerId);
+		}
+	}
+
+	// Call the updateChargerStatus function for each charger
+	for (let chargerId in chargers) {
+		updateChargerStatus(chargerId);
+	}
+</script>
+</body>
+</html>
