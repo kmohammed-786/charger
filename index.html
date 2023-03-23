@@ -8,84 +8,143 @@
 			margin: 0;
 			padding: 0;
 		}
-			.container {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 20px;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-	}
 
-	.charger {
-		width: 200px;
-		height: 200px;
-		margin-bottom: 20px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-	}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
 
-	.charger p {
-		margin: 0;
-		font-size: 16px;
-		font-weight: bold;
-	}
+		.charger {
+			width: 200px;
+			height: 200px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
 
-	.checked-in {
-		background-color: green;
-		color: white;
-	}
+		.charger p {
+			margin: 0;
+			font-size: 16px;
+			font-weight: bold;
+		}
 
-	.checked-out {
-		background-color: red;
-		color: white;
-	}
-</style>
+		.checked-in {
+			background-color: green;
+			color: white;
+		}
+
+		.checked-out {
+			background-color: red;
+			color: white;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
-		<!-- Use a for loop to create the chargers dynamically -->
-		<?php for ($i = 1; $i <= 8; $i++) { ?>
-			<div class="charger" id="charger<?php echo $i; ?>">
-				<p>Charger <?php echo $i; ?></p>
-				<button onclick="checkIn(<?php echo $i; ?>)">Check In</button>
-				<button onclick="checkOut(<?php echo $i; ?>)">Check Out</button>
-			</div>
-		<?php } ?>
+		<div class="charger" id="charger1">
+			<p>Charger 1</p>
+			<button onclick="checkIn('charger1')">Check In</button>
+			<button onclick="checkOut('charger1')">Check Out</button>
+		</div>
+		<div class="charger" id="charger2">
+			<p>Charger 2</p>
+			<button onclick="checkIn('charger2')">Check In</button>
+			<button onclick="checkOut('charger2')">Check Out</button>
+		</div>
+		<div class="charger" id="charger3">
+			<p>Charger 3</p>
+			<button onclick="checkIn('charger3')">Check In</button>
+			<button onclick="checkOut('charger3')">Check Out</button>
+		</div>
+		<div class="charger" id="charger4">
+			<p>Charger 4</p>
+			<button onclick="checkIn('charger4')">Check In</button>
+			<button onclick="checkOut('charger4')">Check Out</button>
+		</div>
+		<div class="charger" id="charger5">
+			<p>Charger 5</p>
+			<button onclick="checkIn('charger5')">Check In</button>
+			<button onclick="checkOut('charger5')">Check Out</button>
+		</div>
+		<div class="charger" id="charger6">
+			<p>Charger 6</p>
+			<button onclick="checkIn('charger6')">Check In</button>
+			<button onclick="checkOut('charger6')">Check Out</button>
+		</div>
+		<div class="charger" id="charger7">
+			<p>Charger 7</p>
+			<button onclick="checkIn('charger7')">Check In</button>
+			<button onclick="checkOut('charger7')">Check Out</button>
+		</div>
+		<div class="charger" id="charger8">
+			<p>Charger 8</p>
+			<button onclick="checkIn('charger8')">Check In</button>
+			<button onclick="checkOut('charger8')">Check Out</button
 	</div>
-<script>
-	// Define an array to hold the state of each charger
-	let chargers = [];
+</div>
 
-	// Initialize the chargers array
-	for (let i = 1; i <= 8; i++) {
-		chargers.push({
+<script>
+	// Define an object to hold the state of each charger
+	const chargers = {
+		charger1: {
 			checkedIn: false,
 			guest: false
-		});
-	}
+		},
+		charger2: {
+			checkedIn: false,
+			guest: false
+		},
+		charger3: {
+			checkedIn: false,
+			guest: false
+		},
+		charger4: {
+			checkedIn: false,
+			guest: false
+		},
+		charger5: {
+			checkedIn: false,
+			guest: false
+		},
+		charger6: {
+			checkedIn: false,
+			guest: false
+		},
+		charger7: {
+			checkedIn: false,
+			guest: false
+		},
+		charger8: {
+			checkedIn: false,
+			guest: false
+		}
+	};
 
 	// Define functions to handle checking in and out
 	function checkIn(chargerId) {
-		if (!chargers[chargerId - 1].checkedIn) {
-			chargers[chargerId - 1].checkedIn = true;
-			document.getElementById("charger" + chargerId).classList.add('checked-in');
-			document.getElementById("charger" + chargerId).classList.remove('checked-out');
+		if (!chargers[chargerId].checkedIn) {
+			chargers[chargerId].checkedIn = true;
+			document.getElementById(chargerId).classList.add('checked-in');
+			document.getElementById(chargerId).classList.remove('checked-out');
 			updateChargerStatus(chargerId);
 		}
 	}
 
 	function checkOut(chargerId) {
-		if (chargers[chargerId - 1].checkedIn) {
-			chargers[chargerId - 1].checkedIn = false;
-			document.getElementById("charger" + chargerId).classList.add('checked-out');
-			document.getElementById("charger" + chargerId).classList.remove('checked-in');
-			chargers[chargerId - 1].guest = false;
+		if (chargers[chargerId].checkedIn) {
+			chargers[chargerId].checkedIn = false;
+			document.getElementById(chargerId).classList.add('checked-out');
+			document.getElementById(chargerId).classList.remove('checked-in');
+			chargers[chargerId].guest = false;
 			updateChargerStatus(chargerId);
 		}
 	}
@@ -94,37 +153,35 @@
 	function updateChargerStatus(chargerId) {
 		let status = 'Available';
 
-		if (chargers[chargerId - 1].checkedIn) {
-			if (chargers[chargerId - 1].guest) {
+		if (chargers[chargerId].checkedIn) {
+			if (chargers[chargerId].guest) {
 				status = 'In use by guest';
 			} else {
 				status = 'In use by group member';
 			}
 		}
 
-		document.getElementById("charger8").classList.remove('checked-in');
-updateChargerStatus('charger8');
-}
-}
-// Define a function to display a message when a charger is checked in
-function displayCheckInMessage(chargerId) {
-	alert(`Charger ${chargerId.slice(-1)} checked in successfully!`);
-}
+		document.getElementById(chargerId).innerHTML = `
+			<p>Charger ${chargerId.slice(-1)}</p>
+			<p>${status}</p>
+			<button onclick="checkIn('${chargerId}')">Check In</button>
+			<button onclick="checkOut('${chargerId}')">Check Out</button>
+			<button onclick="markGuest('${chargerId}')">Mark as Guest</button>
+		`;
+	}
 
-// Define a function to display a message when a charger is checked out
-function displayCheckOutMessage(chargerId) {
-	alert(`Charger ${chargerId.slice(-1)} checked out successfully!`);
-}
+	// Define a function to mark a charger as being used by a guest
+	function markGuest(chargerId) {
+		if (chargers[chargerId].checkedIn) {
+			chargers[chargerId].guest = true;
+			updateChargerStatus(chargerId);
+		}
+	}
 
-// Call the updateChargerStatus function for each charger to set initial status
-updateChargerStatus('charger1');
-updateChargerStatus('charger2');
-updateChargerStatus('charger3');
-updateChargerStatus('charger4');
-updateChargerStatus('charger5');
-updateChargerStatus('charger6');
-updateChargerStatus('charger7');
-updateChargerStatus('charger8');
+	// Call the updateChargerStatus function for each charger
+	for (let chargerId in chargers) {
+		updateChargerStatus(chargerId);
+	}
 </script>
 </body>
 </html>
